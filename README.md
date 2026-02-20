@@ -41,7 +41,7 @@ bash
 
 Bash · Linux · tar · at · cron · Automation
 
-⸻
+## Author
 
 Panagiotis Zois
 MSc ICT | Bridging Business & Technology
