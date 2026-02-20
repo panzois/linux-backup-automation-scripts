@@ -1,0 +1,36 @@
+#!/bin/bash
+if [ $# -ne 3 ]; then
+    echo "Χρήση: $0 <username> <source> <destination>"
+    exit 1
+fi
+
+user=$1
+source=$2
+destination=$3
+homedir=/home/$user
+
+if [ ! -d "$homedir" ]; then
+    echo "Ο χρήστης $user δεν υπάρχει."
+    exit 2
+fi
+
+if [ ! -e "$homedir/$source" ]; then
+    echo "Το $source δεν υπάρχει στον φάκελο του χρήστη."
+    exit 3
+fi
+
+tempbackup="/tmp/${user}_backup_$(date +%Y%m%d_%H%M%S).tar"
+tar -Pcf "$tempbackup" "$homedir/$source"
+
+if [ -d "$homedir/$destination" ]; then
+    mv "$tempbackup" "$homedir/$destination/"
+    echo "Το backup αποθηκεύτηκε στον φάκελο $destination."
+elif [[ "$destination" == *.tar ]] && [ -f "$homedir/$destination" ]; then
+    tar -Prf "$homedir/$destination" "$homedir/$source"
+    echo "Το $source προστέθηκε στο αρχείο $destination."
+    rm "$tempbackup"
+else
+    echo "Μη έγκυρος προορισμός. Πρέπει να είναι φάκελος ή αρχείο tar."
+    rm -f "$tempbackup"
+    exit 4
+fi

@@ -1,0 +1,32 @@
+#!/bin/bash
+if [ $# -ne 4 ]; then
+    echo "Χρήση: $0 <username> <source> <destination> <ώρα π.χ. '23:30'>"
+    exit 1
+fi
+
+user=$1
+source=$2
+destination=$3
+time=$4
+homedir=/home/$user
+
+if [ ! -d "$homedir" ]; then
+    echo "Ο χρήστης $user δεν υπάρχει."
+    exit 2
+fi
+
+if [ ! -e "$homedir/$source" ]; then
+    echo "Το $source δεν υπάρχει στον φάκελο του χρήστη."
+    exit 3
+fi
+
+tmp="/tmp/bckjob$$.sh"
+echo "#!/bin/bash" > "$tmp"
+echo "$HOME/bck $user $source $destination" >> "$tmp"
+chmod +x "$tmp"
+
+at "$time" <<EOF
+$tmp
+EOF
+
+echo "Το backup προγραμματίστηκε για $time."

@@ -1,0 +1,7 @@
+#!/bin/bash
+dir="$PWD"
+user=$(whoami)
+backup="/tmp/${user}_weekly_$(date +%Y%m%d_%H%M%S).tar"
+
+tar -Pcf "$backup" "$dir"
+echo "Το backup αποθηκεύτηκε στο $backup"
