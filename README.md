@@ -17,7 +17,7 @@ Shell-based backup automation using tar, at, and cron.
 
 ## Usage
 
-- bash
+bash
 chmod +x bck bck1 bck2
 
 ./bck user source destination
@@ -25,7 +25,7 @@ chmod +x bck bck1 bck2
 ./bck2
 
 Example cron entry:
-- bash
+bash
 0 23 * * 0 /home/username/bck2
 
 ## Stack
