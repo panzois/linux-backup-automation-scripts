@@ -43,5 +43,5 @@ Bash · Linux · tar · at · cron · Automation
 
 ⸻
 
-## Panagiotis Zois
+Panagiotis Zois
 MSc ICT | Bridging Business & Technology
